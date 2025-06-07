@@ -1,30 +1,28 @@
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { auth } from "@/auth";
+import Logout from "./Logout";
 
-export default function NavBar() {
-  const isAuthenticated = false;
+export default async function NavBar() {
+  const session = await auth();
+
+  const isAuthenticated = !!session?.user;
 
   return (
     <nav>
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto p-4">
         <div className="flex items-center justify-between py-2">
           <div className="flex gap-10">
             <Link href={"/"} className="text-2xl font-bold">
-              Ai
+              ET
             </Link>
             {isAuthenticated && (
               <div className="sm:flex gap-4 hidden">
                 <Link
-                  href={"/home"}
+                  href={"/templates"}
                   className="text-sm border px-2 py-1 rounded-md hover:bg-accent"
                 >
-                  Analyze Data
-                </Link>
-                <Link
-                  href={"/dashboard"}
-                  className="text-sm border px-2 py-1 rounded-md hover:bg-accent"
-                >
-                  Dashboard
+                  Templates
                 </Link>
               </div>
             )}
@@ -47,7 +45,7 @@ export default function NavBar() {
               </>
             ) : (
               <div className="flex gap-6 items-center">
-                <Button>Logut</Button>
+                <Logout />
               </div>
             )}
           </div>

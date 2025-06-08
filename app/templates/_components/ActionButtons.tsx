@@ -2,7 +2,7 @@ import { useSelectedElement, useTemplateStructure } from "@/Provider";
 import { ArrowUp, ArrowDown, Trash2 } from "lucide-react";
 
 export default function ActionButtons() {
-  const { selectedElement } = useSelectedElement();
+  const { selectedElement, setSelectedElement } = useSelectedElement();
   const { templateStructure, setTemplateStructure } = useTemplateStructure();
 
   function moveLayoutUpDown(move: number) {
@@ -32,6 +32,7 @@ export default function ActionButtons() {
     const layoutId = selectedElement?.meta_data?.layoutId;
     if (!layoutId) return;
 
+    setSelectedElement(null);
     setTemplateStructure((prev) => prev.filter((item) => item.id !== layoutId));
   }
 

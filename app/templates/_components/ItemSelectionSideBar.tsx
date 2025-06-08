@@ -106,6 +106,12 @@ export function ItemSelectionSideBar() {
         width: "100%",
         height: "auto",
       },
+      outerStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      },
     },
     {
       type: "element",

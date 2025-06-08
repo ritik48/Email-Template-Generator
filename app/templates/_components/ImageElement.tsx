@@ -1,3 +1,7 @@
 export function ImageComponent({ item }: { item: any }) {
-  return <img style={item.style} src={item.style.src} alt="Image" />;
+  return (
+    <div style={item.outerStyle}>
+      <img style={item.style} src={item.style.src} alt="Image" />
+    </div>
+  );
 }

@@ -3,6 +3,8 @@
 import React from "react";
 import { Settings as SettingsIcon } from "lucide-react";
 import { useSelectedElement, useTemplateStructure } from "@/Provider";
+import { InputFieldStyle } from "./InputFieldStyle";
+import { Slider } from "@/components/ui/slider";
 
 export function Settings() {
   const { selectedElement, setSelectedElement } = useSelectedElement();
@@ -55,27 +57,26 @@ export function Settings() {
 
   const renderCommonControls = () => (
     <>
-      <label className="block text-sm font-medium text-gray-700">
-        Background Color
-      </label>
-      <input
-        type="color"
+      <InputFieldStyle
+        label={"Background Color"}
+        styleKey={"color"}
         value={selectedElement.style.backgroundColor || "#ffffff"}
-        onChange={(e) => handleStyleChange("backgroundColor", e.target.value)}
-        className="w-full mb-2"
+        type={"color"}
+        onChange={(value) => handleStyleChange("backgroundColor", value)}
       />
 
       {/* Width Slider */}
       <label className="block text-sm font-medium text-gray-700">Width</label>
       <div className="flex items-center gap-2">
-        <input
-          type="range"
+        <Slider
           min={0}
           max={100}
-          value={parseInt(selectedElement.style.width || "100", 10)}
-          onChange={(e) => handleStyleChange("width", `${e.target.value}%`)}
+          step={1}
+          value={[parseInt(selectedElement.style.width || "100", 10)]}
+          onValueChange={([val]) => handleStyleChange("width", `${val}%`)}
           className="w-full"
         />
+
         <span className="text-sm text-gray-600">
           {selectedElement.style.width || "100%"}
         </span>
@@ -86,14 +87,15 @@ export function Settings() {
         Height
       </label>
       <div className="flex items-center gap-2">
-        <input
-          type="range"
+        <Slider
           min={0}
           max={500}
-          value={parseInt(selectedElement.style.height || "50", 10)}
-          onChange={(e) => handleStyleChange("height", `${e.target.value}px`)}
+          step={1}
+          value={[parseInt(selectedElement.style.height || "50", 10)]}
+          onValueChange={([val]) => handleStyleChange("height", `${val}px`)}
           className="w-full"
         />
+
         <span className="text-sm text-gray-600">
           {selectedElement.style.height || "50px"}
         </span>
@@ -107,35 +109,28 @@ export function Settings() {
       case "text":
         return (
           <>
-            <label className="block text-sm font-medium text-gray-700">
-              Font Size
-            </label>
-            <input
-              type="text"
+            <InputFieldStyle
+              label={"Font Size"}
+              styleKey={"fontSize"}
               value={selectedElement.style.fontSize || ""}
-              onChange={(e) => handleStyleChange("fontSize", e.target.value)}
-              className="w-full border border-gray-300 rounded px-2 py-1 mb-2"
-              placeholder="e.g., 16px"
+              type={"number"}
+              onChange={(value) => handleStyleChange("fontSize", `${value}px`)}
             />
 
-            <label className="block text-sm font-medium text-gray-700">
-              Text Color
-            </label>
-            <input
-              type="color"
+            <InputFieldStyle
+              label={"Text Color"}
+              styleKey={"color"}
               value={selectedElement.style.color || "#000000"}
-              onChange={(e) => handleStyleChange("color", e.target.value)}
-              className="w-full mb-2"
+              type={"color"}
+              onChange={(value) => handleStyleChange("color", value)}
             />
 
-            <label className="block text-sm font-medium text-gray-700">
-              Label
-            </label>
-            <input
-              type="text"
+            <InputFieldStyle
+              label={"Label"}
+              styleKey={"label"}
               value={selectedElement.style.label || ""}
-              onChange={(e) => handleStyleChange("label", e.target.value)}
-              className="w-full border border-gray-300 rounded px-2 py-1 mb-2"
+              type={"text"}
+              onChange={(value) => handleStyleChange("label", value)}
             />
           </>
         );
@@ -143,15 +138,12 @@ export function Settings() {
       case "image":
         return (
           <>
-            <label className="block text-sm font-medium text-gray-700">
-              Image URL
-            </label>
-            <input
-              type="text"
+            <InputFieldStyle
+              label={"Image URL"}
+              styleKey={"src"}
               value={selectedElement.style.src || ""}
-              onChange={(e) => handleStyleChange("src", e.target.value)}
-              className="w-full border border-gray-300 rounded px-2 py-1 mb-2"
-              placeholder="https://example.com/image.jpg"
+              type={"text"}
+              onChange={(value) => handleStyleChange("src", value)}
             />
           </>
         );

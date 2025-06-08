@@ -10,3 +10,7 @@ This is a simple email template generator that allows you to create a template f
 - Supports multiple layouts and columns
 - Customize colors, fonts, and other styles
 - Preview and test your email templates
+
+### Editor Preview
+
+![image](https://github.com/user-attachments/assets/60c24963-d637-456b-9506-2a91142f0d04)

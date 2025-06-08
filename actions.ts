@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import {
   EmailTemplate,
-  IEmailTemplate,
+  IEmailTemplateDocument,
 } from "./app/_models/email-template.model";
 import { auth } from "./auth";
 import { connectDB } from "./lib/db";
@@ -17,7 +17,7 @@ export async function createTemplate(title: string, description?: string) {
 
     await connectDB();
 
-    const template: IEmailTemplate = await EmailTemplate.create({
+    const template: IEmailTemplateDocument = await EmailTemplate.create({
       title,
       description,
       user: session.user._id,
@@ -44,9 +44,10 @@ export async function saveTemplate(id: string, template: string) {
 
     await connectDB();
 
-    const templateToSave: IEmailTemplate | null = await EmailTemplate.findOne({
-      _id: id,
-    });
+    const templateToSave: IEmailTemplateDocument | null =
+      await EmailTemplate.findOne({
+        _id: id,
+      });
 
     if (!templateToSave) {
       return { error: "Template not found", data: null };

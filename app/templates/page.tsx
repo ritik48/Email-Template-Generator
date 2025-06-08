@@ -17,9 +17,7 @@ export default async function TemplatesPage() {
     redirect("/signin");
   }
 
-  const templates = (await getTemplates(
-    session.user!._id
-  )) as unknown as IEmailTemplate[];
+  const templates = await getTemplates(session.user!._id);
 
   return (
     <div className="">
@@ -35,14 +33,16 @@ export default async function TemplatesPage() {
 
         <TemplateList templates={templates} />
 
-        <div className="flex-1 justify-center flex">
-          <div className="flex flex-col items-center gap-4 mt-40">
-            <p className="text-gray-500 text-lg">
-              You don't have any templates yet. Start by creating one.
-            </p>
-            <NewTemplateButton />
+        {templates.length === 0 && (
+          <div className="flex-1 justify-center flex">
+            <div className="flex flex-col items-center gap-4 mt-40">
+              <p className="text-gray-500 text-lg">
+                You don't have any templates yet. Start by creating one.
+              </p>
+              <NewTemplateButton />
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

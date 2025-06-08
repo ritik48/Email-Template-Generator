@@ -8,7 +8,11 @@ import { redirect } from "next/navigation";
 import { getemailTemplate } from "@/server-fns";
 import { IEmailTemplate } from "@/app/_models/email-template.model";
 
-export default async function Page({ params }: { params: { id: string } }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const session = await auth();
 
   const isAuthenticated = !!session?.user;
@@ -18,9 +22,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
   const { id } = await params;
 
-  const emailTemplate = (await getemailTemplate(
-    id
-  )) as unknown as IEmailTemplate;
+  const emailTemplate = await getemailTemplate(id);
   if (!emailTemplate) {
     redirect("/templates");
   }

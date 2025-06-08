@@ -1,26 +1,31 @@
 import { User } from "@/app/_models/user.model";
 import { connectDB } from "@/lib/db";
+import { NextResponse } from "next/server";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(request: Request) {
   try {
     await connectDB();
 
-    const { email, password } = await req.json();
+    const { email, password } = await request.json();
 
     const userExists = await User.findOne({ email });
     if (userExists) {
-      return Response.json(
+      return NextResponse.json(
         { success: false, message: "Email already exists" },
         { status: 400 }
       );
     }
 
     await User.create({ email, password });
-    return Response.json(
+    return NextResponse.json(
       { success: true, message: "Account created" },
       { status: 201 }
     );
   } catch (error) {
-    console.log(error);
+    console.error("Signup error:", error);
+    return NextResponse.json(
+      { success: false, message: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

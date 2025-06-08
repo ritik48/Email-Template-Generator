@@ -1,5 +1,8 @@
 import { Provider } from "@/Provider";
 import NavBar from "../_components/NavBar";
+import { ItemSelectionSideBar } from "../_components/ItemSelectionSideBar";
+import { Canvas } from "../_components/Canvas";
+import { Settings } from "../_components/Settings";
 
 export default function Page() {
   return (
@@ -7,11 +10,13 @@ export default function Page() {
       <Provider>
         <NavBar />
 
-        {/* <SideBar /> */}
+        <div className="flex items-start justify-between h-[calc(100vh-55px)] overflow-hidden">
+          <ItemSelectionSideBar />
 
-        {/* <Canvas />
+          <Canvas />
 
-        <Settings /> */}
+          <Settings />
+        </div>
       </Provider>
     </div>
   );

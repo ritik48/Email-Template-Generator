@@ -8,3 +8,8 @@ export async function getTemplates(userId: string) {
   const templates = await EmailTemplate.find({ user: userId }).lean();
   return templates;
 }
+export async function getemailTemplate(id: string) {
+  await connectDB();
+  const template = await EmailTemplate.findOne({ _id: id }).lean();
+  return template;
+}

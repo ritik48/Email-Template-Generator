@@ -12,12 +12,18 @@ import {
 import { SelectedElementContext } from "./context/SelectedElementContext";
 import { CanvasRefContext } from "./context/CanvasRefContext";
 
-export function Provider({ children }: { children: React.ReactNode }) {
+export function Provider({
+  children,
+  initialTemplateStructure = [],
+}: {
+  children: React.ReactNode;
+  initialTemplateStructure?: TemplateStructureType[];
+}) {
   const [screen, setScreen] = useState<"desktop" | "mobile">("desktop");
   const [dragElement, setDragElement] = useState<DragElement | null>(null);
   const [templateStructure, setTemplateStructure] = useState<
     TemplateStructureType[]
-  >([]);
+  >(initialTemplateStructure);
 
   const [selectedElement, setSelectedElement] = useState<
     (DragElement & { meta_data: { layoutId: number; index: number } }) | null

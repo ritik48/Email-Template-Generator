@@ -1,10 +1,12 @@
 import { auth } from "@/auth";
+import NavBar from "@/components/NavBar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default async function Home() {
   return (
     <div className="">
+      <NavBar />
       <div className="max-w-7xl mx-auto min-h-[calc(100vh-64px)] flex flex-col p-4">
         <div className="flex flex-col text-center flex-1 mt-[150px] items-center">
           <h1 className="text-4xl sm:text-6xl font-semibold">

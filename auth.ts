@@ -23,18 +23,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
         const user = await User.findOne({ email });
         if (!user) {
-          // If the user does not exist, you can throw an error or handle it as needed
           return null;
         }
 
         if (user.password !== password) {
-          return null; // If the password does not match, return null
+          return null;
         }
+
+        console.log("User authenticated:", user);
 
         return user;
       },
     }),
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.email = user.email;
+      }
+      return token;
+    },
+    async session({ token, session }) {
+      if (session && session.user) {
+        session.user.email = token.email!;
+        session.user._id = token.sub!;
+      }
+
+      return session;
+    },
+  },
   pages: {
     signIn: "/signin",
   },

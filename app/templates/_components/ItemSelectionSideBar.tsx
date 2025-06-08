@@ -11,10 +11,7 @@ import {
   Columns4,
   Type,
   Image,
-  Hash,
   Minus,
-  Zap,
-  Settings,
   MousePointer,
 } from "lucide-react";
 import { useDragElement } from "@/Provider";
@@ -69,6 +66,12 @@ export function ItemSelectionSideBar() {
         wordBreak: "break-word",
         label: "Button",
       },
+      outerStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
+      },
     },
     {
       type: "element",
@@ -78,11 +81,19 @@ export function ItemSelectionSideBar() {
       style: {
         backgroundColor: "#fff",
         color: "#000",
-        width: "100%",
-        height: "auto",
-        textAlign: "center",
+        width: "40%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
         wordBreak: "break-word",
         label: "Button",
+      },
+      outerStyle: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100%",
       },
     },
     {

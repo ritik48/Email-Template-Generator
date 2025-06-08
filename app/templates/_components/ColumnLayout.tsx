@@ -6,6 +6,7 @@ import {
 import { DragElement, ElementType } from "@/types";
 import { useState } from "react";
 import { ElementLayout } from "./ElementLayout";
+import ActionButtons from "./ActionButtons";
 
 type ColumnLayoutProps = {
   layout: {
@@ -95,42 +96,56 @@ export function ColumnLayout({ layout }: ColumnLayoutProps) {
   };
   console.log({ selectedElement });
 
+  const selectedLayout = selectedElement?.meta_data.layoutId === layout.id;
+
   return (
     <div>
       <div
+        className={`relative ${selectedLayout ? "border border-blue-200" : ""}`}
         style={{
           display: "grid",
           gridTemplateColumns: `repeat(${layout.col}, 1fr)`,
           gap: "0px",
         }}
       >
-        {Array.from({ length: layout.col }).map((_, index) => (
-          <div
-            key={index}
-            className={`border-dashed flex items-center justify-center p-2
-    ${
-      dragOver?.index === index && layout.id === dragOver.layoutId
-        ? "bg-green-200"
-        : layout.children[index]?.type
-        ? "bg-white"
-        : "bg-gray-100"
-    }
-    ${
-      selectedElement?.meta_data?.layoutId === layout.id &&
-      selectedElement?.meta_data?.index === index
-        ? "border-2 border-blue-500"
-        : "border-0 border-gray-400"
-    }
-  `}
-            onDragOver={() => handleDragOver(index)}
-            onDragLeave={() => handleDragLeave(index)}
-            onDrop={() => handleDrop(index)}
-            onClick={() => handleSelectElement(layout.id, index)}
-          >
-            {getElement(layout.children[index], index, layout.id) ||
-              `Col ${index + 1}`}
-          </div>
-        ))}
+        {Array.from({ length: layout.col }).map((_, index) => {
+          const isDragOver =
+            dragOver?.index === index && layout.id === dragOver.layoutId;
+          const isSelected =
+            selectedElement?.meta_data?.layoutId === layout.id &&
+            selectedElement?.meta_data?.index === index;
+          const hasChild = !!layout.children[index]?.type;
+
+          const bgColor = isDragOver
+            ? "bg-green-200"
+            : hasChild
+            ? "bg-white"
+            : "bg-gray-100";
+
+          const borderClass = isSelected
+            ? "border-2 border-blue-500"
+            : hasChild
+            ? "border-0"
+            : "border-1 border-gray-400";
+
+          return (
+            <div
+              key={index}
+              className={` border-dashed ${bgColor} ${borderClass} ${
+                hasChild ? "p-0" : "p-2"
+              }`}
+              onDragOver={() => handleDragOver(index)}
+              onDragLeave={() => handleDragLeave(index)}
+              onDrop={() => handleDrop(index)}
+              onClick={() => handleSelectElement(layout.id, index)}
+            >
+              {getElement(layout.children[index], index, layout.id) ||
+                `Col ${index + 1}`}
+            </div>
+          );
+        })}
+
+        {selectedLayout && <ActionButtons />}
       </div>
     </div>
   );

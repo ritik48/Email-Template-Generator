@@ -127,6 +127,16 @@ export function Settings() {
               onChange={(e) => handleStyleChange("color", e.target.value)}
               className="w-full mb-2"
             />
+
+            <label className="block text-sm font-medium text-gray-700">
+              Label
+            </label>
+            <input
+              type="text"
+              value={selectedElement.style.label || ""}
+              onChange={(e) => handleStyleChange("label", e.target.value)}
+              className="w-full border border-gray-300 rounded px-2 py-1 mb-2"
+            />
           </>
         );
 

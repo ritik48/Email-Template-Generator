@@ -66,6 +66,8 @@ export function ItemSelectionSideBar() {
         cursor: "pointer",
         width: "40%",
         height: "auto",
+        wordBreak: "break-word",
+        label: "Button",
       },
     },
     {
@@ -79,6 +81,8 @@ export function ItemSelectionSideBar() {
         width: "100%",
         height: "auto",
         textAlign: "center",
+        wordBreak: "break-word",
+        label: "Button",
       },
     },
     {

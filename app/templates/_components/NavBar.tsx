@@ -4,8 +4,9 @@ import { auth } from "@/auth";
 import { Code } from "lucide-react";
 import { ScreenChange } from "./ScreenChange";
 import { CopyCode } from "./CopyCode";
+import { SaveTemplateButton } from "./SaveTemplateButton";
 
-export default async function NavBar() {
+export default async function NavBar({ id }: { id: string }) {
   const session = await auth();
   const isAuthenticated = !!session?.user;
 
@@ -21,7 +22,7 @@ export default async function NavBar() {
           <ScreenChange />
           <div className="flex items-center gap-4">
             <CopyCode />
-            <Button>Save Template</Button>
+            <SaveTemplateButton id={id} />
           </div>
         </div>
       </div>

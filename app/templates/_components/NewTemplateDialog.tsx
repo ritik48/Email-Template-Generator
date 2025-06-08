@@ -47,7 +47,7 @@ export function NewTemplateButton() {
   });
 
   const onSubmit = async (values: TemplateFormType) => {
-    console.log(values);
+
 
     startTransition(async () => {
       const res = await createTemplate(values.title, values.description);

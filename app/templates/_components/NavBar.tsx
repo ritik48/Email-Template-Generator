@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/auth";
 import { Code } from "lucide-react";
 import { ScreenChange } from "./ScreenChange";
+import { CopyCode } from "./CopyCode";
 
 export default async function NavBar() {
   const session = await auth();
@@ -19,7 +20,7 @@ export default async function NavBar() {
           </div>
           <ScreenChange />
           <div className="flex items-center gap-4">
-            <Code className="w-6 h-6" />
+            <CopyCode />
             <Button>Save Template</Button>
           </div>
         </div>
